@@ -1,0 +1,17 @@
+{
+    "experiment_name": "compound_loss",
+    "num_successful_runs": 3,
+    "mean_best_val_dice": "0.5776",
+    "std_dev_best_val_dice": "0.0579",
+    "mean_best_epoch_val_loss": "1.9090",
+    "std_dev_best_epoch_val_loss": "1.9107",
+    "individual_best_dice_scores": [
+        "0.6186",
+        "0.4958",
+        "0.6186"
+    ],
+    "mean_3d_dice": "0.0000",
+    "std_3d_dice": "0.0000",
+    "mean_3d_hd95": "nan",
+    "std_3d_hd95": "nan"
+}

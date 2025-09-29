@@ -1,0 +1,17 @@
+{
+    "experiment_name": "enet_attention",
+    "num_successful_runs": 3,
+    "mean_best_val_dice": "0.8402",
+    "std_dev_best_val_dice": "0.0012",
+    "mean_best_epoch_val_loss": "0.0198",
+    "std_dev_best_epoch_val_loss": "0.0012",
+    "individual_best_dice_scores": [
+        "0.8412",
+        "0.8384",
+        "0.8409"
+    ],
+    "mean_3d_dice": "0.7200",
+    "std_3d_dice": "0.0071",
+    "mean_3d_hd95": "12.8766",
+    "std_3d_hd95": "0.3297"
+}

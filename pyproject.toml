@@ -1,0 +1,46 @@
+[build-system]
+requires = ['setuptools']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'distorch'
+authors = [
+    { name = 'Hoel Kervadec' },
+    { name = 'Jérôme Rony' },
+]
+description = 'Efficient tools for distance analysis in PyTorch'
+readme = 'README.md'
+license = {file = 'LICENSE'}
+requires-python = '>=3.11'
+dependencies = [
+    'torch>=2.0',
+]
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'Intended Audience :: Science/Research',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    'Operating System :: POSIX :: Linux',
+    'Topic :: Scientific/Engineering :: Bio-Informatics',
+    'Topic :: Scientific/Engineering :: Image Processing',
+]
+dynamic = ['version']
+
+[project.optional-dependencies]
+keops = ['pykeops>=2.2']
+edt = ['cucim-cu12', 'cupy-cuda12x']
+dev = ['distorch[keops,edt]']
+
+[tool.setuptools.packages.find]
+include = ['distorch*']
+
+[tool.setuptools.dynamic]
+version = { attr = 'distorch.__version__' }
+
+[tool.pytest.ini_options]
+pythonpath = ['.']
+
+[project.urls]
+Repository = 'https://github.com/jeromerony/distorch.git'

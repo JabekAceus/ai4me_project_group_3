@@ -1,0 +1,17 @@
+{
+    "experiment_name": "elastic_augmentations",
+    "num_successful_runs": 3,
+    "mean_best_val_dice": "0.8136",
+    "std_dev_best_val_dice": "0.0083",
+    "mean_best_epoch_val_loss": "0.0154",
+    "std_dev_best_epoch_val_loss": "0.0017",
+    "individual_best_dice_scores": [
+        "0.8030",
+        "0.8146",
+        "0.8232"
+    ],
+    "mean_3d_dice": "0.6843",
+    "std_3d_dice": "0.0171",
+    "mean_3d_hd95": "14.9059",
+    "std_3d_hd95": "0.5719"
+}

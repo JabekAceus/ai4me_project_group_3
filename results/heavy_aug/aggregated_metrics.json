@@ -1,0 +1,17 @@
+{
+    "experiment_name": "heavy_aug",
+    "num_successful_runs": 3,
+    "mean_best_val_dice": "0.7597",
+    "std_dev_best_val_dice": "0.0039",
+    "mean_best_epoch_val_loss": "0.0145",
+    "std_dev_best_epoch_val_loss": "0.0008",
+    "individual_best_dice_scores": [
+        "0.7647",
+        "0.7552",
+        "0.7593"
+    ],
+    "mean_3d_dice": "0.5773",
+    "std_3d_dice": "0.0230",
+    "mean_3d_hd95": "21.1542",
+    "std_3d_hd95": "1.8738"
+}

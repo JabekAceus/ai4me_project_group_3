@@ -1,0 +1,17 @@
+{
+    "experiment_name": "enet_se",
+    "num_successful_runs": 3,
+    "mean_best_val_dice": "0.8417",
+    "std_dev_best_val_dice": "0.0040",
+    "mean_best_epoch_val_loss": "0.0182",
+    "std_dev_best_epoch_val_loss": "0.0008",
+    "individual_best_dice_scores": [
+        "0.8362",
+        "0.8455",
+        "0.8433"
+    ],
+    "mean_3d_dice": "0.7307",
+    "std_3d_dice": "0.0050",
+    "mean_3d_hd95": "13.2643",
+    "std_3d_hd95": "1.0126"
+}

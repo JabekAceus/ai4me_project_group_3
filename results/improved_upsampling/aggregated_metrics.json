@@ -1,0 +1,17 @@
+{
+    "experiment_name": "improved_upsampling",
+    "num_successful_runs": 3,
+    "mean_best_val_dice": "0.5770",
+    "std_dev_best_val_dice": "0.0289",
+    "mean_best_epoch_val_loss": "0.0579",
+    "std_dev_best_epoch_val_loss": "0.0224",
+    "individual_best_dice_scores": [
+        "0.6157",
+        "0.5464",
+        "0.5688"
+    ],
+    "mean_3d_dice": "0.0925",
+    "std_3d_dice": "0.0692",
+    "mean_3d_hd95": "nan",
+    "std_3d_hd95": "nan"
+}

@@ -1,0 +1,17 @@
+{
+    "experiment_name": "cosine_scheduler",
+    "num_successful_runs": 3,
+    "mean_best_val_dice": "0.8323",
+    "std_dev_best_val_dice": "0.0067",
+    "mean_best_epoch_val_loss": "0.0235",
+    "std_dev_best_epoch_val_loss": "0.0001",
+    "individual_best_dice_scores": [
+        "0.8320",
+        "0.8407",
+        "0.8244"
+    ],
+    "mean_3d_dice": "0.7230",
+    "std_3d_dice": "0.0084",
+    "mean_3d_hd95": "13.2648",
+    "std_3d_hd95": "0.2088"
+}

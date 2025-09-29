@@ -1,0 +1,17 @@
+{
+    "experiment_name": "focal_loss",
+    "num_successful_runs": 3,
+    "mean_best_val_dice": "0.5262",
+    "std_dev_best_val_dice": "0.2209",
+    "mean_best_epoch_val_loss": "13.2356",
+    "std_dev_best_epoch_val_loss": "9.9714",
+    "individual_best_dice_scores": [
+        "0.4256",
+        "0.3204",
+        "0.8325"
+    ],
+    "mean_3d_dice": "0.7168",
+    "std_3d_dice": "0.0000",
+    "mean_3d_hd95": "13.2432",
+    "std_3d_hd95": "0.0000"
+}

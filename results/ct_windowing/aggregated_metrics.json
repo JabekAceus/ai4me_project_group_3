@@ -1,0 +1,17 @@
+{
+    "experiment_name": "ct_windowing",
+    "num_successful_runs": 3,
+    "mean_best_val_dice": "0.8599",
+    "std_dev_best_val_dice": "0.0034",
+    "mean_best_epoch_val_loss": "0.0189",
+    "std_dev_best_epoch_val_loss": "0.0004",
+    "individual_best_dice_scores": [
+        "0.8603",
+        "0.8556",
+        "0.8640"
+    ],
+    "mean_3d_dice": "0.7542",
+    "std_3d_dice": "0.0071",
+    "mean_3d_hd95": "12.2406",
+    "std_3d_hd95": "0.1294"
+}

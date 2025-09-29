@@ -1,0 +1,17 @@
+{
+    "experiment_name": "ce_dice_loss",
+    "num_successful_runs": 3,
+    "mean_best_val_dice": "0.8091",
+    "std_dev_best_val_dice": "0.0052",
+    "mean_best_epoch_val_loss": "0.2837",
+    "std_dev_best_epoch_val_loss": "0.0019",
+    "individual_best_dice_scores": [
+        "0.8116",
+        "0.8138",
+        "0.8018"
+    ],
+    "mean_3d_dice": "0.7186",
+    "std_3d_dice": "0.0056",
+    "mean_3d_hd95": "16.2493",
+    "std_3d_hd95": "1.7562"
+}

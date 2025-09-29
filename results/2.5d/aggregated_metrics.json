@@ -1,0 +1,17 @@
+{
+    "experiment_name": "2.5d",
+    "num_successful_runs": 3,
+    "mean_best_val_dice": "0.8368",
+    "std_dev_best_val_dice": "0.0039",
+    "mean_best_epoch_val_loss": "0.0194",
+    "std_dev_best_epoch_val_loss": "0.0002",
+    "individual_best_dice_scores": [
+        "0.8386",
+        "0.8404",
+        "0.8314"
+    ],
+    "mean_3d_dice": "0.7196",
+    "std_3d_dice": "0.0093",
+    "mean_3d_hd95": "12.7979",
+    "std_3d_hd95": "0.6651"
+}
