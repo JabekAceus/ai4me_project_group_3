@@ -35,7 +35,7 @@ def stitch_volumes(slice_dir: Path, dest_dir: Path, source_scan_dir: Path, num_c
     print(f"Scanning for slices in '{slice_dir}'...")
     all_files = list(slice_dir.glob("*.png"))
     if not all_files:
-        print(f"❌ Error: No .png slices found in '{slice_dir}'. Cannot proceed.")
+        print(f"Error: No .png slices found in '{slice_dir}'. Cannot proceed.")
         return False
     for slice_file in all_files:
         match = regex.match(slice_file.name)
@@ -43,7 +43,7 @@ def stitch_volumes(slice_dir: Path, dest_dir: Path, source_scan_dir: Path, num_c
             patient_id = match.groups()[0]
             patient_slices[patient_id].append(slice_file)
     if not patient_slices:
-        print(f"❌ Error: No files matched the regex '{grp_regex}'. Check the pattern.")
+        print(f"Error: No files matched the regex '{grp_regex}'. Check the pattern.")
         return False
         
     print(f"Found slices for {len(patient_slices)} patients.")
@@ -52,7 +52,7 @@ def stitch_volumes(slice_dir: Path, dest_dir: Path, source_scan_dir: Path, num_c
         
         original_scan_path = source_scan_dir / f"{patient_id}.nii.gz"
         if not original_scan_path.exists():
-            print(f"\n⚠️ Warning: Source scan not found for patient {patient_id} at '{original_scan_path}'. Skipping.")
+            print(f"\nWarning: Source scan not found for patient {patient_id} at '{original_scan_path}'. Skipping.")
             continue
         
         try:
@@ -61,7 +61,7 @@ def stitch_volumes(slice_dir: Path, dest_dir: Path, source_scan_dir: Path, num_c
             original_affine = original_nii.affine
             original_header = original_nii.header
         except Exception as e:
-            print(f"\n❌ Error loading NIfTI file {original_scan_path}: {e}")
+            print(f"\nError loading NIfTI file {original_scan_path}: {e}")
             continue
         
         first_slice_img = imread(slice_files[0])
@@ -82,7 +82,7 @@ def stitch_volumes(slice_dir: Path, dest_dir: Path, source_scan_dir: Path, num_c
         stitched_nii.set_data_dtype(np.uint8)
         save_path = dest_dir / f"{patient_id}.nii.gz"
         nib.save(stitched_nii, str(save_path))
-    print(f"✅ Stitching complete. Volumes saved to '{dest_dir}'")
+    print(f"Stitching complete. Volumes saved to '{dest_dir}'")
     return True
 
 
@@ -122,7 +122,7 @@ def clean_volumes(source_dir: Path, dest_dir: Path):
     dest_dir.mkdir(parents=True, exist_ok=True)
     nii_files = list(source_dir.glob("*.nii.gz"))
     if not nii_files:
-        print(f"❌ Error: No stitched volumes (.nii.gz) found in '{source_dir}' to clean.")
+        print(f"Error: No stitched volumes (.nii.gz) found in '{source_dir}' to clean.")
         return False
     print(f"Found {len(nii_files)} NIfTI files to clean in '{source_dir}'...")
     
@@ -134,7 +134,7 @@ def clean_volumes(source_dir: Path, dest_dir: Path):
         list(tqdm_(pool.imap_unordered(p_clean_single_volume, nii_files), 
                   total=len(nii_files), 
                   desc="Cleaning Volumes"))
-    print(f"✅ Cleaning complete. Cleaned volumes saved to '{dest_dir}'")
+    print(f"Cleaning complete. Cleaned volumes saved to '{dest_dir}'")
     return True
 
 
@@ -153,7 +153,7 @@ def compute_final_metrics(pred_dir: Path, ref_dir: Path, output_dir: Path, metri
     
     valid_stems = [s for s in stems if s in pred_stems]
     if not valid_stems:
-        print(f"❌ Error: No matching predictions found in '{pred_dir}' for ground truths in '{ref_dir}'.")
+        print(f"Error: No matching predictions found in '{pred_dir}' for ground truths in '{ref_dir}'.")
         return False
     print(f"Found {len(valid_stems)} matching cases for metric computation.")
     dataset = VolumeDataset(valid_stems, ref_dir, pred_dir, ".nii.gz", ".nii.gz", K)
@@ -195,7 +195,7 @@ def compute_final_metrics(pred_dir: Path, ref_dir: Path, output_dir: Path, metri
         print(f'{key:<12} | {mean_scores_str}')
     
     print("-" * len(header))
-    print(f"✅ Metrics computation complete. Results saved in '{output_dir}'")
+    print(f"Metrics computation complete. Results saved in '{output_dir}'")
     return True
 
 
@@ -225,7 +225,7 @@ def main(args):
     if args.post_process:
         success = clean_volumes(source_dir=stitched_dir, dest_dir=cleaned_dir)
         if not success:
-            print("⚠️ Warning: Cleaning step failed. Computing metrics on uncleaned volumes.")
+            print("Warning: Cleaning step failed. Computing metrics on uncleaned volumes.")
         else:
             final_pred_dir = cleaned_dir 
     
@@ -237,7 +237,7 @@ def main(args):
         K=args.num_classes
     )
     
-    print("\n🎉 Full evaluation pipeline complete.")
+    print("\nFull evaluation pipeline complete.")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Full 3D evaluation pipeline: Stitch -> Clean -> Compute Metrics.")

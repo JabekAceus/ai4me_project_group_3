@@ -57,7 +57,7 @@ def slice_patient(
         ct: np.ndarray = np.asarray(nib_obj.dataobj)
         gt = np.asarray(nib.load(str(gt_path)).dataobj) if gt_path and gt_path.exists() else np.zeros_like(ct, dtype=np.uint8)
     except FileNotFoundError:
-        print(f"⚠️ Warning: Could not find data for ID {id_}. Skipping.")
+        print(f"Warning: Could not find data for ID {id_}. Skipping.")
         return
     processed_ct = ct_windowing(ct) if preprocessing == 'ct_windowing' else norm_arr(ct)
     img_dest, gt_dest = dest_path / 'img', dest_path / 'gt'
@@ -174,7 +174,7 @@ def main(args):
         
         with Pool(1) as p:
             list(tqdm_(p.imap(pfun, split_ids), total=len(split_ids), desc=f"Slicing {mode} set"))
-    print(f"\n🎉 Data preparation complete. Processed data is in '{dest_path}'.")
+    print(f"\nData preparation complete. Processed data is in '{dest_path}'.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Data preparation pipeline for 3D medical images.")

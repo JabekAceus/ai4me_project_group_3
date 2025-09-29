@@ -184,7 +184,7 @@ def train_single_run(args: argparse.Namespace):
                 pred_logits = net(img)
                 pred_probs = F.softmax(pred_logits, dim=1)
                 save_images(probs2class(pred_probs) * 63, data['stems'], best_epoch_dir)
-        print("✅ Best epoch images generated successfully.")
+        print("Best epoch images generated successfully.")
     
     np.save(args.dest / "loss_tra.npy", np.array(log_loss_tra_epoch))
     np.save(args.dest / "loss_val.npy", np.array(log_loss_val_epoch))
@@ -207,11 +207,11 @@ def is_run_complete(run_dir: Path, required_epochs: int) -> bool:
 
 def run_command(command: str):
     """Helper to run shell commands for data preparation."""
-    print(f"\n🚀 Executing: {command}")
+    print(f"\nExecuting: {command}")
     try:
         subprocess.run(command, shell=True, check=True)
     except subprocess.CalledProcessError as e:
-        print(f"❌ Command failed with exit code {e.returncode}")
+        print(f"Command failed with exit code {e.returncode}")
         raise
 
 
@@ -236,16 +236,16 @@ def main(args):
                         f"{config_params['_prepare_args']}")
             run_command(prep_cmd)
         else:
-            print(f"✅ Pre-processed data for '{exp_name}' already exists.")
+            print(f"Pre-processed data for '{exp_name}' already exists.")
     
     completed_runs_count = sum(1 for run in exp_dir.glob(f"{exp_name}_run_*") if is_run_complete(run, args.epochs))
     if completed_runs_count >= args.runs:
-        print(f"✅ Experiment '{exp_name}' already has {completed_runs_count} completed runs (requested {args.runs}). Skipping training.")
+        print(f"Experiment '{exp_name}' already has {completed_runs_count} completed runs (requested {args.runs}). Skipping training.")
         return
     start_run_idx = completed_runs_count + 1
     end_run_idx = start_run_idx + (args.runs - completed_runs_count)
     if completed_runs_count > 0:
-        print(f"✅ Found {completed_runs_count} completed runs for '{exp_name}'. Resuming to complete a total of {args.runs} runs.")
+        print(f"Found {completed_runs_count} completed runs for '{exp_name}'. Resuming to complete a total of {args.runs} runs.")
         print(f"   Starting new runs from index {start_run_idx}.")
     
     for i in range(start_run_idx, end_run_idx):
@@ -268,7 +268,7 @@ def main(args):
         print(">> RUN ARGS:")
         pprint(vars(run_args))
         train_single_run(run_args)
-    print("\n🎉 Experiment pipeline complete.")
+    print("\nExperiment pipeline complete.")
 
 
 if __name__ == '__main__':
