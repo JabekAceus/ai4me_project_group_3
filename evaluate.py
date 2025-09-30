@@ -118,7 +118,6 @@ def clean_volumes(source_dir: Path, dest_dir: Path):
     """
     Applies the cleaning function to all NIfTI files in a directory using multiprocessing.
     """
-    print("\n" + "="*20 + " STEP 2: CLEANING VOLUMES " + "="*20)
     dest_dir.mkdir(parents=True, exist_ok=True)
     nii_files = list(source_dir.glob("*.nii.gz"))
     if not nii_files:
@@ -144,7 +143,6 @@ def compute_final_metrics(pred_dir: Path, ref_dir: Path, output_dir: Path, metri
     """
     Computes 3D metrics between predicted segmentations and a reference (ground truth).
     """
-    print("\n" + "="*20 + " STEP 3: COMPUTING METRICS " + "="*20)
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     output_dir.mkdir(parents=True, exist_ok=True)
     stems = sorted([p.stem.replace('.nii', '') for p in ref_dir.glob("*.nii.gz")])
@@ -223,12 +221,14 @@ def main(args):
     
     final_pred_dir = stitched_dir
     if args.post_process:
-        success = clean_volumes(source_dir=stitched_dir, dest_dir=cleaned_dir)
-        if not success:
+        print("\n" + "="*20 + " STEP 2: CLEANING VOLUMES " + "="*20)
+        success_clean = clean_volumes(source_dir=stitched_dir, dest_dir=cleaned_dir)
+        if not success_clean:
             print("Warning: Cleaning step failed. Computing metrics on uncleaned volumes.")
         else:
             final_pred_dir = cleaned_dir 
     
+    print("\n" + "="*20 + " STEP 3: COMPUTING METRICS " + "="*20)
     compute_final_metrics(
         pred_dir=final_pred_dir,
         ref_dir=args.gt_dir,

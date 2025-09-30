@@ -208,9 +208,10 @@ def main():
     parser.add_argument('--save_images', action='store_true', help="Save validation prediction images for the best model.")
     parser.add_argument('--eval_only', action='store_true', help="Skip training and run only aggregation, evaluation, and reporting.")
     args = parser.parse_args()
+    
+    configs_to_run = args.configs if args.configs else CONFIGURATIONS.keys()
+
     if not args.eval_only:
-        
-        configs_to_run = args.configs if args.configs else CONFIGURATIONS.keys()
         for config_name in configs_to_run:
             if config_name not in CONFIGURATIONS:
                 print(f"Warning: Config '{config_name}' not found. Skipping.")
@@ -235,8 +236,6 @@ def main():
                 continue
     else:
         print("\n" + "="*20 + " --eval_only flag detected, SKIPPING TRAINING. " + "="*20)
-        
-        configs_to_run = args.configs if args.configs else CONFIGURATIONS.keys()
     
     print("\n" + "="*20 + " AGGREGATING ALL EXPERIMENT RESULTS " + "="*20)
     for config_name in configs_to_run:
@@ -251,12 +250,30 @@ def main():
     for config_name in configs_to_run:
         print("\n" + "#"*15 + f" AUTO 3D EVALUATION FOR: {config_name} " + "#"*15)
         exp_dir = args.base_dest_dir / config_name
+        
+        agg_metrics_path_check = exp_dir / "aggregated_metrics.json"
+        if agg_metrics_path_check.exists():
+            try:
+                with open(agg_metrics_path_check, 'r') as f:
+                    existing_metrics = json.load(f)
+                if existing_metrics.get('mean_3d_dice') and existing_metrics.get('mean_3d_dice') != 'N/A':
+                    print(f"  [i] 3D evaluation results already found for '{config_name}'. Skipping.")
+                    continue
+            except (json.JSONDecodeError, IOError) as e:
+                print(f"  [!] Warning: Could not read existing metrics for {config_name}: {e}. Proceeding with evaluation.")
+
         run_dirs = sorted([d for d in exp_dir.glob(f"{config_name}_run_*") if d.is_dir()])
         if not run_dirs:
             print(f"  [!] No run folders found for {config_name}. Skipping 3D evaluation.")
             continue
         all_runs_3d_dice = []
         all_runs_3d_hd95 = []
+        
+        # Determine if this configuration should be post-processed
+        should_post_process = CONFIGURATIONS[config_name].get("_post_process", False)
+        if should_post_process:
+            print(f"  [i] Post-processing is ENABLED for this configuration.")
+
         for i, run_dir in enumerate(run_dirs):
             print(f"--> Evaluating run {i+1}/{len(run_dirs)} for {config_name}...")
             pred_slice_dir = run_dir / "best_epoch"
@@ -269,7 +286,8 @@ def main():
                 gt_dir=Path("data") / dataset_name / "val_gt_nifti",
                 original_scans_dir=Path("data") / dataset_name / "val_scans_nifti",
                 output_dir=run_dir / "final_3d_metrics",
-                post_process=True, num_classes=5,
+                post_process=should_post_process, 
+                num_classes=5,
                 grp_regex=r"^(Patient(?:_CT)?_\d+)_\d{4}\.png$",
                 metrics=['3d_dice', '3d_hd95']
             )

@@ -25,6 +25,13 @@ from utils import (dice_coef, probs2class, probs2one_hot, save_images,
 CONFIGURATIONS = {
     
     "baseline": {"--loss_function": "cross_entropy", "--optimizer": "adam", "--online_augmentations": "none", "--architecture": "enet"},
+    "baseline_postprocessed": {
+        "--loss_function": "cross_entropy", 
+        "--optimizer": "adam", 
+        "--online_augmentations": "none", 
+        "--architecture": "enet",
+        "_post_process": True # This flag will trigger post-processing during evaluation
+    },
     
     "dice_loss": {"--loss_function": "dice"},
     "focal_loss": {"--loss_function": "focal"},
