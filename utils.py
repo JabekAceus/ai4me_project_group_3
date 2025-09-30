@@ -20,8 +20,6 @@ class Dcm(AbstractContextManager):
     def __exit__(self, *args, **kwargs):
         pass
 
-
-
 A = TypeVar("A")
 B = TypeVar("B")
 
